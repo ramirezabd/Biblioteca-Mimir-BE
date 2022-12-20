@@ -7,6 +7,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Pengembalian = sequelize.define("Pengembalian", {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     tanggal_pengembalian: {
       type: DataTypes.DATE,
     },

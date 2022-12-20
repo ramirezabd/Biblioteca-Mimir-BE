@@ -23,9 +23,26 @@ db.pengembalian = require("./pengembalian")(sequelize,Sequelize)
 db.petugas = require("./petugas")(sequelize,Sequelize)
 db.rak = require("./rak_buku")(sequelize,Sequelize)
 
-db.anggota.belongsToMany(db.buku,db.petugas, {
+db.anggota.belongsToMany(db.petugas, {
     through: db.peminjaman,
-    as
+    foreignKey: {name: "angggota_id"},
 })
+
+db.petugas.belongsToMany(db.anggota, {
+    through: db.peminjaman,
+    foreignKey: {
+        name: "petugas_id",
+    }
+})
+
+db.buku.hasMany(db.peminjaman, {
+    foreignKey: {
+        name: "buku_id",
+    }
+})  
+
+db.peminjaman.belongsTo(db.buku)
+
+module.exports = db;
 
 
