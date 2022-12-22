@@ -1,10 +1,7 @@
-const db = require("../model/indexModel");
-const angggota = db.angggota;
-const petugas =  db.petugas;
-const buku = db.buku;
+import {anggota, buku, petugas, rak_buku, peminjaman, pengembalian} from "../../cl_1/models/"
 
-module.exports.cariAnggota = (req,res) => {
-    db.anggota.findAll()
+module.exports.anggota = (req,res) => {
+    anggota.findAll()
      .then(hasil => {
         res.send(hasil)
      })

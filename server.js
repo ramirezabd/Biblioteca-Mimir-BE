@@ -41,11 +41,11 @@ app.use("/images", express.static(path.join(lokasi, "images")));
 
 app.use(routes);
 
-db.sequelize.sync({
-    force: true
-}).then(() => {
-    console.log("The Database has been dropped and re-sync")
- });
+// db.sequelize.sync({
+//     force: true
+// }).then(() => {
+//     console.log("The Database has been dropped and re-sync")
+//  });
 
 //  db.sequelize.sync().then(() => {
 //     console.log("The Database has been updated and re-sync")

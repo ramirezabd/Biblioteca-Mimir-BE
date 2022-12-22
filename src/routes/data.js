@@ -1,7 +1,7 @@
-const express = require("express");
-const routes = express.Router();
-const {} = require("../controllers/ctr")
+import { Router } from "express";
+import {anggota} from "../controllers";
+const routes = Router()
 
+routes.get("get",anggota)
 
-
-module.exports = routes
+export default routes
