@@ -1,0 +1,10 @@
+npx sequelize model:create 
+--name anggota --attributes username:STRING,password:STRING,nama_anggota:STRING,jurusan_anggota:STRING,kelas_anggota:STRING,nomor_telepon:INTEGER,alamat:STRING   
+
+npx sequelize model:create
+
+--name buku --attributes isbn:INTEGER,judul_buku:STRING,penulis:STRING,penerbit:STRING,tahun_penerbit:DATE,sinopsis:STRING,stock:INTEGER
+--name petugas --attributes nama_petugas:STRING,jabatan_petugas:STRING,nomor_telepon:INTEGER,alamat:STRING
+--name peminjaman --attributes id_buku:INTEGER,id_anggota:INTEGER,id_petugas:INTEGER,tanggal_peminjaman:DATE,denda:INTEGER
+--name pengembalian --attributes tanggal_pengembalian:DATE,id_buku:INTEGER,id_anggota:INTEGER,id_petugas:INTEGER,tanggal_peminjaman:DATE,tanggal_kembali:DATE
+--name rak_buku --attributes nama_rak:STRING,lokasi:STRING,id_buku:INTEGER

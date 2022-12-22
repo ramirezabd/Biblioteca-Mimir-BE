@@ -14,14 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     tanggal_peminjaman: {
       type: DataTypes.DATE,
-    // },
-    // anggota_id: {
-    //   allowNull: false,
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: Anggota,
-    //     key:"id"
-    //   }
     },
     denda: {
       type: DataTypes.INTEGER,
