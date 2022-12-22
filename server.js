@@ -3,7 +3,6 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path")
 const routes = require("./src/routes/data");
-const db = require("./src/model/indexModel");
 const port = 4050;
 
 const app = express();

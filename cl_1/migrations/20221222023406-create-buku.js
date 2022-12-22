@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       isbn: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       judulBuku: {
         type: Sequelize.STRING

@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   petugas.init({
     namaPetugas: DataTypes.STRING,
     jabatan: DataTypes.STRING,
-    nomorTelepon: DataTypes.INTEGER,
+    nomorTele: DataTypes.INTEGER,
     alamat: DataTypes.STRING
   }, {
     sequelize,

@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   buku.init({
-    isbn: DataTypes.INTEGER,
+    isbn: DataTypes.STRING,
     judulBuku: DataTypes.STRING,
     penulis: DataTypes.STRING,
     penerbit: DataTypes.STRING,
