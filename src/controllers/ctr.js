@@ -1,15 +1,23 @@
-const { anggota, petugas, buku } = require("../../cl_1/models")
+const { anggota, petugas, buku, rak_buku, sequelize } = require("../../cl_1/models")
 
-const cariAnggota = (req,res) => {
-    anggota.findAll()
-     .then(hasil => {
-        res.send(hasil)
-     })
-     .catch(err => console.error(err))
+const cariAnggota = (req, res) => {
+   anggota.findAll(
+      // {limit:2}
+      {
+         attributes:
+            ["namaAnggota", "jurusanAnggota", "kelasAnggota"]
+      }
+   )
+      .then(hasil => {
+         res.json(hasil)
+      })
+      .catch(err => console.error(err))
 }
 
 const isiAnggota = (req, res) => {
    const ruleAnggota = {
+      username: req.body.username,
+      password: req.body.password,
       namaAnggota: req.body.namaAnggota,
       jurusanAnggota: req.body.jurusanAnggota,
       kelasAnggota: req.body.kelasAnggota,
@@ -17,24 +25,26 @@ const isiAnggota = (req, res) => {
       alamat: req.body.alamat,
    }
 
+   // const { username, password, namaAnggota, jurusanAnggota, kelasAnggota, nomorTelepon, alamat} = req.body;
+
    anggota.create(ruleAnggota)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      res.status(500).send({
-         message:
-            err.message || "terdapat kesalahan dalam penginputan"
+      .then(data => {
+         res.send(data)
       })
-    })
+      .catch(err => {
+         res.status(500).send({
+            message:
+               err.message || "terdapat kesalahan dalam penginputan"
+         })
+      })
 }
 
 const cariBuku = (req, res) => {
    buku.findAll()
-   .then(hasil => {
-      res.send(hasil)
-   })
-   .catch(err => console.error(err))
+      .then(hasil => {
+         res.send(hasil)
+      })
+      .catch(err => console.error(err))
 }
 
 const isiBuku = (req, res) => {
@@ -49,45 +59,94 @@ const isiBuku = (req, res) => {
    };
 
    buku.create(ruleBuku)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      res.status(500).send({
-         message:
-         err.message || "udah salah inimah"
+      .then(data => {
+         res.send(data)
       })
-    })
+      .catch(err => {
+         res.status(500).send({
+            message:
+               err.message || "udah salah inimah"
+         })
+      })
 }
 
 const cariPetugas = (req, res) => {
    petugas.findAll()
-    .then(hasil => {
-      res.send(hasil)
-    })
-    .catch(err => console.error(err))
+      .then(hasil => {
+         res.send(hasil).json
+      })
+      .catch(err => console.error(err))
 }
 
-const isiPetugas = (req,res) => {
+const isiPetugas = (req, res) => {
    const rulePetugas = {
       namaPetugas: req.body.namaPetugas,
       jabatan: req.body.jabatan,
-      nomorTele: req.body.nomorTelepon,
+      nomorTele: req.body.nomorTele,
       alamat: req.body.alamat
    };
 
    petugas.create(rulePetugas)
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      res.status(500).send({
-         message:
-         err.message || "yah salah"
+      .then(data => {
+         res.send(data)
       })
-    })
+      .catch(err => {
+         res.status(500).send({
+            message:
+               err.message || "yah salah"
+         })
+      })
 }
 
+const kategori = async (req, res) => {
+   anggota.findAll({
+      attributes: ["namaAnggota", "alamat",
+         // [
+         //    sequelize.fn("COUNT", sequelize.col("jurusanAnggota")), "jurusan"
+         // ]
+      ]
+   })
+      .then(hasil => {
+         res.send(hasil)
+      })
+      .catch(err => console.error(err))
+}
+
+const minjem = async (req, res) => {
+   const abc = 1;
+   anggota.findAll({
+      where: {
+         id: abc
+      },
+      attributes: { exclude: ["username", "password", "createdAt", "updatedAt"] }
+   })
+      .then(hasil => {
+         res.json(hasil)
+      })
+      .catch(err => console.error(err))
+}
+
+const isiRak = async (req, res) => {
+   // const idBuku = 
+   const ruleRak = {
+      namaRak: req.body.namaRak,
+      lokasi: req.body.lokasi ? req.body.lokasi : "unknown",
+      idBuku: req.body.idBuku ? req.body.idBuku : 1
+   };
+
+   rak_buku.create(ruleRak)
+      .then(data => {
+         res.send(data)
+      })
+      .catch(err => {
+         res.status(500).send({
+            message:
+               err.message || "terdapat kesalahan dalam penginputan"
+         })
+      })
+}
+
+//tama punya
 const pinjol = async (req, res) => {
    try {
       const act = await anggota.create(req.body)
@@ -102,4 +161,4 @@ const pinjol = async (req, res) => {
    }
 }
 
-module.exports = { cariAnggota, isiAnggota, cariBuku, isiBuku, cariPetugas, isiPetugas}
+module.exports = { cariAnggota, isiAnggota, cariBuku, isiBuku, cariPetugas, isiPetugas, pinjol, kategori, minjem, isiRak }

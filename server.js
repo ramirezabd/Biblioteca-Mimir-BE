@@ -1,14 +1,21 @@
+const dotenv = require("dotenv")
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const cookieparser = require('cookie-parser');
 const path = require("path")
+
+
 const routes = require("./src/routes/data");
 const port = 4050;
+dotenv.config();
 
 const app = express();
-
+app.use(cors({ credentials: true, origin: 'http://localhost:4050' }));
+app.use(cookieparser())
 app.use(express.json());
-app.use(cors());
+
+
 
 const lokasi = path.dirname(__filename);
 
@@ -33,8 +40,9 @@ const imgFilter = (res, req, cb) => {
 
 app.use(multer({
     storage: imgStorage,
-    fileFilter: imgFilter}
-    ).single("ppBeeg"));
+    fileFilter: imgFilter
+}
+).single("ppBeeg"));
 
 app.use("/images", express.static(path.join(lokasi, "images")));
 
@@ -50,6 +58,6 @@ app.use(routes);
 //     console.log("The Database has been updated and re-sync")
 //  });
 
- app.listen(port, () => console.log(`Server berjalan di https://localhost:`+port));
+app.listen(port, () => console.log(`Server berjalan di http://localhost:` + port));
 
 
