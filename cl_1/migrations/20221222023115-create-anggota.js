@@ -10,13 +10,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
       },
       namaAnggota: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       jurusanAnggota: {
         type: Sequelize.STRING
@@ -29,6 +30,9 @@ module.exports = {
       },
       alamat: {
         type: Sequelize.STRING
+      },
+      refresh_token: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

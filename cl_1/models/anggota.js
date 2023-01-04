@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     jurusanAnggota: DataTypes.STRING,
     kelasAnggota: DataTypes.STRING,
     nomorTelepon: DataTypes.INTEGER,
-    alamat: DataTypes.STRING
+    alamat: DataTypes.STRING,
+    refresh_token: DataTypes.TEXT
   }, {
     sequelize,
     tableName: "anggota",

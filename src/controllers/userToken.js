@@ -61,47 +61,52 @@ const Login = async (req, res) => {
         const name = user[0].namaAnggota;
         const username = user[0].username;
 
+        // const { userId, name, username } = req.body
 
         console.log(" ");
         console.log(`ID: ` + userId);
         console.log(`name: ` + name);
         console.log(`username: ` + username);
         console.log(" ")
+        console.log(`ID2: ` + user[0].id);
+        console.log(`name2: ` + user[0].namaAnggota);
+        console.log(`username2: ` + user[0].username);
+        console.log(" ")
 
 
-        // const accessToken = jwt.sign({
-        //     userId: anggota[0].id,
-        //     name: anggota[0].namaAnggota,
-        //     username: anggota[0].username
-        // }, process.env.ACCESS_TOKEN_SECRET, {
-        //     expiresIn: '20s'
-        // });
+        const accessToken = jwt.sign({
+            userId,
+            name,
+            username,
+        }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: '20s'
+        });
 
-        // const refreshToken = jwt.sign({ userId, name, username }, process.env.REFRESH_TOKEN_SECRET, {
-        //     expiresIn: '1d'
-        // });
-
-
-        // console.log(" ")
-        // console.log("kenapa ga keliatan access sama refreshnya")
-        // console.log(`access token: ` + accessToken)
-        // console.log(`refresh token: ` + refreshToken)
-        // console.log(" ")
+        const refreshToken = jwt.sign({ userId, name, username }, process.env.REFRESH_TOKEN_SECRET, {
+            expiresIn: '1d'
+        });
 
 
-        // await anggota.update({ refresh_token: refreshToken }, {
-        //     where: {
-        //         id: userId
-        //     }
-        // });
-        // res.cookie('refreshToken', refreshToken, {
-        //     httpOnly: true,
-        //     maxAge: 24 * 60 * 60 * 1000
-        // });
-        // res.json({ accessToken });
+        console.log(" ")
+        console.log("kenapa ga keliatan access sama refreshnya")
+        console.log(`access token: ` + accessToken)
+        console.log(`refresh token: ` + refreshToken)
+        console.log(" ")
+
+
+        await anggota.update({ refresh_token: refreshToken }, {
+            where: {
+                id: userId
+            }
+        });
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000
+        });
+        res.json({ accessToken });
 
         console.log("Berhasil")
-        
+
     } catch (error) {
         res.status(404).json({ msg: "username atau password tidak ditemukan" });
         console.log("Tidak ditemukan, tapi versi console")
