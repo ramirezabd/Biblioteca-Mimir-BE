@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       peminjaman.belongsTo(models.petugas,{
         foreignKey: "idPetugas",
-      })
+      });
     }
   }
   peminjaman.init({
@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'peminjaman',
+    tableName: 'peminjaman'
   });
   return peminjaman;
 };

@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       pengembalian.belongsTo(models.petugas,{
         foreignKey: "idPetugas",
-      })
+      });
     }
   }
   pengembalian.init({

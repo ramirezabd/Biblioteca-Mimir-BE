@@ -3,6 +3,7 @@ const { Router } = require("express");
 const { Register, Login, Logout, getUsers } = require("../controllers/userToken")
 const { refreshToken } = require("../controllers/refreshToken")
 const { verifyToken } = require("../middleware/verifyToken")
+const { pinjamBuku, pengembalianBuku, lihatPeminjaman } = require("../controllers/borrow")
 
 
 const { cariAnggota, isiAnggota, cariBuku, isiBuku, cariPetugas, isiPetugas, pinjol, kategori, minjem, isiRak } = require("../controllers/ctr")
@@ -25,4 +26,6 @@ routes.post('/login', Login);
 routes.get('/token', refreshToken);
 routes.delete('/logout', Logout);
 
+routes.post('/pinjam', pinjamBuku)
+routes.post('/pengambilan', pengembalianBuku)
 module.exports = routes;

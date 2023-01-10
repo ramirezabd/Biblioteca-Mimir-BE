@@ -3,6 +3,7 @@ import Dashboard from "../src/components/Dasboard";
 import Login from "../src/components/Login";
 import Navbar from "../src/components/Navbar";
 import Register from "../src/components/Register";
+import Book from "../src/components/Buku"
 
 function App() {
     return (
@@ -10,7 +11,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route
-                    path="/login"
+                    path="/"
                     element={<Login />}
                 />
                 <Route
@@ -18,8 +19,13 @@ function App() {
                     element={<Register />}
                 />
                 <Route
-                    path="/dasboard"
+                    path="/dashboard"
                     element={<Dashboard />}
+                >
+                </Route>
+                <Route
+                    path="/buku"
+                    element={<Book />}
                 >
                 </Route>
             </Routes>

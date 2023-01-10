@@ -47,7 +47,7 @@ const cariBuku = (req, res) => {
       .catch(err => console.error(err))
 }
 
-const isiBuku = (req, res) => {
+const isiBuku = async (req, res) => {
    const ruleBuku = {
       isbn: req.body.isbn,
       judulBuku: req.body.judulBuku,
@@ -60,7 +60,8 @@ const isiBuku = (req, res) => {
 
    buku.create(ruleBuku)
       .then(data => {
-         res.send(data)
+         // res.send(data),
+         res.status(201).json({ msg: "Register Berhasil" })
       })
       .catch(err => {
          res.status(500).send({
@@ -68,6 +69,22 @@ const isiBuku = (req, res) => {
                err.message || "udah salah inimah"
          })
       })
+
+   // const { isbn, judulBuku, penulis, penerbit, tahunPenerbit, sinopsis, stock } = req.body
+   // try {
+   //    await buku.create({
+   //       isbn: isbn,
+   //       judulBuku: judulBuku,
+   //       penulis: penulis,
+   //       penerbit: penerbit,
+   //       tahunPenerbit: tahunPenerbit,
+   //       sinopsis: sinopsis,
+   //       stock: stock,
+   //    });
+   //    res.json({ msg: "registrasi buku berhasil" })
+   // } catch (error) {
+   //    console.log(error)
+   // }
 }
 
 const cariPetugas = (req, res) => {
@@ -145,6 +162,7 @@ const isiRak = async (req, res) => {
          })
       })
 }
+
 
 //tama punya
 const pinjol = async (req, res) => {

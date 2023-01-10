@@ -10,14 +10,10 @@ const Dashboard = () => {
     const [users, setUsers] = useState([]);
     const history = useNavigate();
 
-    useEffect(() => {
-        refreshToken();
-        getUsers();
-    }, []);
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get('http://localhost:4050/token');
+            const response = await axios.get('http://localhost:8000/token');
             setToken(response.data.accessToken);
             const decoded = jwt_decode(response.data.accessToken);
             setName(decoded.name);
@@ -34,7 +30,7 @@ const Dashboard = () => {
     axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date();
         if (expire * 1000 < currentDate.getTime()) {
-            const response = await axios.get('http://localhost:4050/token');
+            const response = await axios.get('http://localhost:8000/token');
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
             const decoded = jwt_decode(response.data.accessToken);
@@ -47,7 +43,7 @@ const Dashboard = () => {
     });
 
     const getUsers = async () => {
-        const response = await axiosJWT.get('http://localhost:4050/users', {
+        const response = await axiosJWT.get('http://localhost:8000/users', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -55,6 +51,10 @@ const Dashboard = () => {
         setUsers(response.data);
     }
 
+    useEffect(() => {
+        refreshToken();
+        getUsers();
+    }, []);
     return (
         <div className="container mt-5">
             <h1>Welcome Back: {name}</h1>
